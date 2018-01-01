@@ -28,12 +28,13 @@ function ballGameV3GUI
 %     disp(' Iteration    Best yet     Current Iter.');
 %     disp(' ---------    --------     -------------');
     flags = getFlags();
+    emptySpots = initEmpty();
     xbest = 100;
     x_plt = [];
     tic;
     while xbest > 1
         
-        [x, moves] = genMoves(flags);
+        [x, moves] = genMoves(flags, emptySpots);
         set(bg_handle.text5, 'String', num2str(iter));
         set(bg_handle.text6, 'String', num2str(xbest));
         
@@ -65,7 +66,7 @@ function ballGameV3GUI
     disp(moves);
     disp('Solution found!');
     
-    function [x, realmoves] = genMoves(flags)
+    function [x, realmoves] = genMoves(flags, emptySpots)
         
         rand_row = 1:7;
         rand_row = randperm(length(rand_row));
@@ -73,7 +74,7 @@ function ballGameV3GUI
         c = 1;
         mc = 1;                       
 
-        x = genMat(); % Generate initial board                                     
+        x = genMat(emptySpots); % Generate initial board                                     
                       % with random empty spot
         while 1
 
@@ -198,26 +199,7 @@ function ballGameV3GUI
             
         end     
 
-    function [x] = genMat()
-        
-                              % Empty spots with possible  
-                              % winning solutions
-        pickAspot = [1, 3;    %          W   L   W
-                     1, 5;    %      L   L   W   L   L
-                     2, 4;    %  W   L   L   W   L   L   W
-                     3, 1;    %  L   W   W   L   W   W   L
-                     3, 4;    %  W   L   L   W   L   L   W
-                     3, 7;    %      L   L   W   L   L
-                     4, 2;    %          W   L   W
-                     4, 3;
-                     4, 5;
-                     4, 6;
-                     5, 1;
-                     5, 4;
-                     5, 7;
-                     6, 4;
-                     7, 3;
-                     7, 5];
+    function [x] = genMat(pickAspot)
                  
         x = ones(7);          % Initial board layout w/ 2's denoting
                               % boundary positions (not included)            
@@ -279,4 +261,21 @@ function ballGameV3GUI
         flags{7, 4} = {'vu'};
         flags{7, 5} = {'vu', 'hl'};
 
-    
+    function pickAspot = initEmpty()
+            
+        pickAspot = [1, 3;    % Empty spots with possible 
+                     1, 5;    % winning solutions
+                     2, 4;    %
+                     3, 1;    %          W   L   W
+                     3, 4;    %      L   L   W   L   L
+                     3, 7;    %  W   L   L   W   L   L   W
+                     4, 2;    %  L   W   W   L   W   W   L
+                     4, 3;    %  W   L   L   W   L   L   W
+                     4, 5;    %      L   L   W   L   L
+                     4, 6;    %          W   L   W
+                     5, 1;
+                     5, 4;
+                     5, 7;
+                     6, 4;
+                     7, 3;
+                     7, 5];

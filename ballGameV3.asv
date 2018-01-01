@@ -28,12 +28,10 @@ function ballGameV3
 
     xbest = 100;
     flags = getFlags();
-    emptySpots = initEmpty();
-    tic
-
+    emptySpots = ini
     while xbest > 1
         
-        [x, moves] = genMoves(flags, emptySpots);
+        [x, moves] = genMoves(flags);
 
         xi = sum(sum(x)); % If sum(x) == 1, game has been solved
         
@@ -48,14 +46,13 @@ function ballGameV3
 
     end
     
-    disp(['Time elapsed = ', sprintf('%f',toc)]);
     randNum =  sprintf('%d', randi([1,10000], 1)); % Save winning moves
     save(['winningMoves',randNum, '.mat'], 'moves');
     save(['winningBoard',randNum, '.mat'], 'x');
     disp(moves);
     disp('Solution found!');
     
-    function [x, realmoves] = genMoves(flags, emptySpots)
+    function [x, realmoves] = genMoves(flags)
         
         rand_row = 1:7;
         rand_row = randperm(length(rand_row));
@@ -63,7 +60,7 @@ function ballGameV3
         c = 1;
         mc = 1;                       
 
-        x = genMat(emptySpots); % Generate initial board                                     
+        x = genMat(); % Generate initial board                                     
                       % with random empty spot
         while 1
 
