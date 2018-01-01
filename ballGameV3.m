@@ -26,10 +26,10 @@ function ballGameV3
     disp(' Iteration    Best yet     Current Iter.');
     disp(' ---------    --------     -------------');
 
-    xbest = 100;
-    flags = getFlags();
-    emptySpots = initEmpty();
-    tic
+    xbest = 100; % Dummy initial best score value
+    flags = getFlags(); % Assign possible moves to cell array
+    emptySpots = initEmpty(); % Obtain possible empty initial locations
+    tic; % Start timer
 
     while xbest > 1
         
@@ -37,7 +37,7 @@ function ballGameV3
 
         xi = sum(sum(x)); % If sum(x) == 1, game has been solved
         
-        if xi < xbest % Update best game
+        if xi < xbest % Update best game score
             
             xbest = xi;
             
@@ -48,7 +48,7 @@ function ballGameV3
 
     end
     
-    disp(['Time elapsed = ', sprintf('%f',toc)]);
+    disp(['Time elapsed = ', sprintf('%f ',toc), ' seconds']);
     randNum =  sprintf('%d', randi([1,10000], 1)); % Save winning moves
     save(['winningMoves',randNum, '.mat'], 'moves');
     save(['winningBoard',randNum, '.mat'], 'x');
