@@ -1,5 +1,5 @@
 function ballGameV3
-    
+format compact; format shortG; clc;    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % ballGameV3.m
     % 
@@ -30,7 +30,8 @@ function ballGameV3
     flags = getFlags(); % Assign possible moves to cell array
     emptySpots = initEmpty(); % Obtain possible empty initial locations
     tic; % Start timer
-
+    
+    % for testtime = 1:5000 % USE TO TEST SPEED
     while xbest > 1
         
         [x, moves] = genMoves(flags, emptySpots);
@@ -44,6 +45,7 @@ function ballGameV3
         end
 
         fprintf('\t%0.0f\t\t\t\t%0.0f\t\t\t%0.0f\n', iter, xbest, xi);
+        
         iter = iter + 1;
 
     end
